@@ -400,7 +400,14 @@
       }, 350 + names * 480 + 200);
     }
     if (i === 2) {
-      var rows = 6, finalCount = 92, step = 420, start = 300;
+      var rows = 6, finalCount = 92, step = 420, start = 900;
+      for (var r = 0; r < rows; r++) {
+        (function (idx) {
+          schedule(function () {
+            panels[2].querySelector('[data-row="' + idx + '"]').classList.add('is-in');
+          }, 80 + idx * 90);
+        })(r);
+      }
       for (var m = 0; m < rows; m++) {
         (function (idx) {
           schedule(function () {
