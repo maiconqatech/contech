@@ -241,7 +241,9 @@
           <div class="guest-row" data-row="1"><span class="guest-check" data-check="1"><svg viewBox="0 0 24 24" fill="none" stroke="#14112C" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></span><span class="guest-name">Carlos Duarte</span><span class="guest-mesa">mesa 1</span></div>
           <div class="guest-row" data-row="2"><span class="guest-check" data-check="2"><svg viewBox="0 0 24 24" fill="none" stroke="#14112C" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></span><span class="guest-name">Fernanda Alves</span><span class="guest-mesa">mesa 2</span></div>
           <div class="guest-row" data-row="3"><span class="guest-check" data-check="3"><svg viewBox="0 0 24 24" fill="none" stroke="#14112C" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></span><span class="guest-name">Rodrigo Souza</span><span class="guest-mesa">mesa 2</span></div>
-          <div class="guest-more is-in">+ 88 outros já confirmados</div>
+          <div class="guest-row" data-row="4"><span class="guest-check" data-check="4"><svg viewBox="0 0 24 24" fill="none" stroke="#14112C" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></span><span class="guest-name">Beatriz Lima</span><span class="guest-mesa">mesa 3</span></div>
+          <div class="guest-row" data-row="5"><span class="guest-check" data-check="5"><svg viewBox="0 0 24 24" fill="none" stroke="#14112C" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></span><span class="guest-name">Diego Martins</span><span class="guest-mesa">mesa 3</span></div>
+          <div class="guest-more" id="guestMore3">+ 86 outros já confirmados</div>
         </div>
         <div class="alert-card" id="alertScene3">
           <div>
@@ -333,6 +335,7 @@
     panel.querySelectorAll('.guest-check').forEach(function (el) { el.classList.remove('is-checked'); });
     var lc = panel.querySelector('#linkChip'); if (lc) lc.classList.remove('is-in');
     var gm2 = panel.querySelector('#guestMore2'); if (gm2) gm2.classList.remove('is-in');
+    var gm3 = panel.querySelector('#guestMore3'); if (gm3) gm3.classList.remove('is-in');
     var ac = panel.querySelector('#alertScene3'); if (ac) ac.classList.remove('is-in');
     var ts = panel.querySelector('#toastScene3'); if (ts) ts.classList.remove('is-in');
     var fb = panel.querySelector('#fakeBtn1'); if (fb) fb.classList.remove('is-pressed');
@@ -353,6 +356,7 @@
     }
     if (i === 2) {
       panel.querySelectorAll('.guest-check').forEach(function (el) { el.classList.add('is-checked'); });
+      var gm3 = panel.querySelector('#guestMore3'); if (gm3) gm3.classList.add('is-in');
       var c3 = document.getElementById('counterScene3'); if (c3) c3.textContent = 'Confirmados: 92 / 80';
     }
   }
@@ -391,23 +395,25 @@
       }, 350 + names * 480 + 200);
     }
     if (i === 2) {
-      var rows = 4, finalCount = 92;
+      var rows = 6, finalCount = 92, step = 420, start = 300;
       for (var m = 0; m < rows; m++) {
         (function (idx) {
           schedule(function () {
             panels[2].querySelector('[data-check="' + idx + '"]').classList.add('is-checked');
-            var approx = Math.round(((idx + 1) / rows) * finalCount);
-            document.getElementById('counterScene3').textContent = 'Confirmados: ' + approx + ' / 80';
-          }, 300 + idx * 420);
+            document.getElementById('counterScene3').textContent = 'Confirmados: ' + (idx + 1) + ' / 80';
+          }, start + idx * step);
         })(m);
       }
       schedule(function () {
+        document.getElementById('guestMore3').classList.add('is-in');
         document.getElementById('counterScene3').textContent = 'Confirmados: ' + finalCount + ' / 80';
+      }, start + rows * step + 300);
+      schedule(function () {
         document.getElementById('alertScene3').classList.add('is-in');
-      }, 300 + rows * 420 + 300);
+      }, start + rows * step + 700);
       schedule(function () {
         document.getElementById('toastScene3').classList.add('is-in');
-      }, 300 + rows * 420 + 1400);
+      }, start + rows * step + 1800);
     }
   }
 
