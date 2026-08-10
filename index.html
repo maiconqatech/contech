@@ -241,8 +241,9 @@
   .plans { margin-top: 2.6rem; display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
   @media (max-width: 920px) { .plans { grid-template-columns: repeat(2, 1fr); } }
   @media (max-width: 520px) { .plans { grid-template-columns: 1fr; } }
-  .plan { border: 1px solid var(--convito-line); border-radius: 18px; padding: 1.35rem 1.2rem; background: rgba(237,233,245,0.04); }
+  .plan { position: relative; border: 1px solid var(--convito-line); border-radius: 18px; padding: 1.35rem 1.2rem; background: rgba(237,233,245,0.04); }
   .plan.is-featured { border-color: var(--convito-gold); background: rgba(194,156,70,0.10); box-shadow: 0 0 0 1px var(--convito-gold); }
+  .plan-badge { position: absolute; top: -11px; left: 1.1rem; background: var(--convito-gold); color: var(--convito-deep); font-family: 'JBM', monospace; font-size: 0.66rem; font-weight: 700; letter-spacing: 0.03em; padding: 0.25rem 0.6rem; border-radius: 999px; white-space: nowrap; }
   .plan-name { font-family: 'Jakarta', sans-serif; font-weight: 700; font-size: 0.9rem; color: var(--convito-text); }
   .plan-price { font-family: 'Unb', sans-serif; font-weight: 900; font-size: 1.5rem; color: var(--convito-gold-light); margin-top: 0.6rem; font-variant-numeric: tabular-nums; }
   .plan-price small { font-size: 0.68rem; font-weight: 600; color: var(--convito-text-soft); font-family: 'Jakarta', sans-serif; }
@@ -706,9 +707,10 @@
         <h2>Convidados sempre ilimitados, em qualquer plano</h2>
         <div class="plans">
           <div class="plan">
+            <span class="plan-badge">2 festas por nossa conta</span>
             <div class="plan-name">Grátis</div>
             <div class="plan-price">R$ 0</div>
-            <div class="plan-detail">2 festas, experimente e entre nessa onda. Convidados sempre ilimitados.</div>
+            <div class="plan-detail">Sem cartão, sem pressa: as 2 primeiras festas são de graça, pra sempre. Convidados sempre ilimitados.</div>
           </div>
           <div class="plan is-featured">
             <div class="plan-name">Básico</div>
