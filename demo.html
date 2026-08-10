@@ -104,7 +104,10 @@
   .field label { display: block; font-family: 'JBM', monospace; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-faint); margin-bottom: 0.3rem; }
   .field .val { font-weight: 600; font-variant-numeric: tabular-nums; }
   .form-actions { margin-top: 1.4rem; display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
-  .fake-btn { font-family: 'Jakarta', sans-serif; font-weight: 700; font-size: 0.9rem; background: var(--gold); color: var(--deep); border: none; padding: 0.7rem 1.3rem; border-radius: 999px; transform: scale(1); transition: transform 0.15s ease; }
+  .fake-btn { font-family: 'Jakarta', sans-serif; font-weight: 700; font-size: 0.9rem; background: var(--gold); color: var(--deep); border: none; padding: 0.7rem 1.3rem; border-radius: 999px; transform: scale(1); transition: transform 0.15s ease; flex: none; }
+  .add-form { display: flex; gap: 0.7rem; margin-bottom: 1.2rem; }
+  .add-input { flex: 1; min-width: 0; background: rgba(20,17,44,0.4); border: 1px solid var(--line); border-radius: 999px; padding: 0.65rem 1rem; color: var(--text); font-family: 'Jakarta', sans-serif; font-size: 0.92rem; caret-color: var(--gold-light); }
+  .add-input::placeholder { color: var(--text-faint); }
   .fake-btn.is-pressed { transform: scale(0.94); }
   .link-chip { font-family: 'JBM', monospace; font-size: 0.82rem; color: var(--ok); display: flex; align-items: center; gap: 0.5rem; opacity: 0; transition: opacity 0.4s ease; }
   .link-chip.is-in { opacity: 1; }
@@ -219,6 +222,10 @@
             <div class="panel-sub">15/03/2026 · cadastro de convidados</div>
           </div>
           <div class="panel-counter" id="counterScene2">0 convidados</div>
+        </div>
+        <div class="add-form">
+          <input type="text" class="add-input" id="addInput" placeholder="Nome do convidado" readonly tabindex="-1" />
+          <button class="fake-btn" id="addBtn" tabindex="-1">Adicionar</button>
         </div>
         <div class="guest-list" id="listScene2">
           <div class="guest-row" data-row="0"><span class="guest-name">Marina Duarte</span><span class="guest-mesa">mesa 1</span></div>
@@ -343,6 +350,8 @@
     var ac = panel.querySelector('#alertScene3'); if (ac) ac.classList.remove('is-in');
     var ts = panel.querySelector('#toastScene3'); if (ts) ts.classList.remove('is-in');
     var fb = panel.querySelector('#fakeBtn1'); if (fb) fb.classList.remove('is-pressed');
+    var ab = panel.querySelector('#addBtn'); if (ab) ab.classList.remove('is-pressed');
+    var ai = panel.querySelector('#addInput'); if (ai) ai.value = '';
     var c2 = document.getElementById('counterScene2'); if (c2) c2.textContent = '0 convidados';
     var c3 = document.getElementById('counterScene3'); if (c3) c3.textContent = 'Confirmados: 0 / 80';
   }
@@ -384,20 +393,32 @@
       }, 2500);
     }
     if (i === 1) {
-      var names = 6, total = 92;
+      var names = 6, total = 92, step2 = 750, start2 = 300;
+      var addInput = document.getElementById('addInput');
+      var addBtn = document.getElementById('addBtn');
       for (var n = 0; n < names; n++) {
         (function (idx) {
+          var row = panels[1].querySelector('[data-row="' + idx + '"]');
+          var name = row.querySelector('.guest-name').textContent;
           schedule(function () {
-            panels[1].querySelector('[data-row="' + idx + '"]').classList.add('is-in');
+            addInput.value = name;
+          }, start2 + idx * step2);
+          schedule(function () {
+            addBtn.classList.add('is-pressed');
+            schedule(function () { addBtn.classList.remove('is-pressed'); }, 160);
+          }, start2 + idx * step2 + 380);
+          schedule(function () {
+            row.classList.add('is-in');
             var frac = (idx + 1) / names;
             document.getElementById('counterScene2').textContent = Math.round(frac * total) + ' convidados';
-          }, 350 + idx * 480);
+            addInput.value = '';
+          }, start2 + idx * step2 + 420);
         })(n);
       }
       schedule(function () {
         document.getElementById('guestMore2').classList.add('is-in');
         document.getElementById('counterScene2').textContent = total + ' convidados';
-      }, 350 + names * 480 + 200);
+      }, start2 + names * step2 + 200);
     }
     if (i === 2) {
       var rows = 6, finalCount = 92, step = 420, start = 900;
