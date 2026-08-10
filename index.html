@@ -14,6 +14,8 @@
     --surface: #FFFFFF;
     --ink: #221934;
     --ink-soft: #5B4E77;
+    --ink-on-accent: #221934;
+    --surface-on-accent: #FFFFFF;
     --line: rgba(34,25,52,0.12);
     --violet-deep: #201C46;
     --violet-deep-2: #14112C;
@@ -102,11 +104,11 @@
   /* ---------- buttons ---------- */
   .btn { font-family: 'Jakarta', sans-serif; font-weight: 700; font-size: 0.96rem; padding: 0.9rem 1.6rem; border-radius: 999px; display: inline-flex; align-items: center; gap: 0.5em; text-decoration: none; border: 2px solid transparent; cursor: pointer; transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease; white-space: nowrap; }
   .btn:active { transform: translateY(1px) scale(0.99); }
-  .btn-primary { background: linear-gradient(120deg, var(--coral), var(--amber)); color: var(--ink); box-shadow: 0 12px 24px -10px var(--shadow); }
+  .btn-primary { background: linear-gradient(120deg, var(--coral), var(--amber)); color: var(--ink-on-accent); box-shadow: 0 12px 24px -10px var(--shadow); }
   .btn-primary:hover { filter: brightness(1.05); box-shadow: 0 16px 30px -10px var(--shadow); }
   .btn-secondary { background: transparent; color: var(--ink); border-color: var(--line); }
   .btn-secondary:hover { border-color: var(--ink); }
-  .btn-on-light { background: var(--surface); color: var(--violet-deep); box-shadow: 0 12px 24px -10px rgba(0,0,0,0.25); }
+  .btn-on-light { background: var(--surface-on-accent); color: var(--violet-deep); box-shadow: 0 12px 24px -10px rgba(0,0,0,0.25); }
   .btn-on-light:hover { filter: brightness(1.04); }
   .btn-ghost-on-dark { background: transparent; color: #fff; border-color: rgba(255,255,255,0.4); }
   .btn-ghost-on-dark:hover { border-color: #fff; }
@@ -147,7 +149,7 @@
   .hero-confetti { position: absolute; inset: -18% -18%; width: 136%; height: 136%; z-index: 0; pointer-events: none; }
   .hero-card { position: relative; z-index: 1; width: min(100%, 300px); background: var(--surface); border-radius: 28px; padding: 1.1rem; transform: rotate(-4deg); box-shadow: 0 30px 60px -20px var(--shadow); border: 1px solid var(--line); }
   .hero-card img { border-radius: 18px; }
-  .hero-card-chip { position: absolute; left: 50%; bottom: -1.1rem; transform: translateX(-50%) rotate(3deg); background: linear-gradient(120deg, var(--coral), var(--amber)); color: var(--ink); font-weight: 700; font-size: 0.82rem; padding: 0.55rem 1.1rem; border-radius: 999px; box-shadow: 0 14px 24px -12px var(--shadow); white-space: nowrap; }
+  .hero-card-chip { position: absolute; left: 50%; bottom: -1.1rem; transform: translateX(-50%) rotate(3deg); background: linear-gradient(120deg, var(--coral), var(--amber)); color: var(--ink-on-accent); font-weight: 700; font-size: 0.82rem; padding: 0.55rem 1.1rem; border-radius: 999px; box-shadow: 0 14px 24px -12px var(--shadow); white-space: nowrap; }
 
   .wave { display: block; width: 100%; height: clamp(40px, 6vw, 70px); }
 
@@ -164,8 +166,8 @@
   @media (max-width: 820px) { .stat-grid { grid-template-columns: 1fr; } }
   .stat-card { border-radius: 24px; padding: 1.8rem; }
   .stat-card.c-coral { background: linear-gradient(150deg, var(--coral), var(--coral-2)); color: #fff; }
-  .stat-card.c-amber { background: var(--amber); color: var(--ink); }
-  .stat-card.c-teal { background: var(--teal); color: var(--ink); }
+  .stat-card.c-amber { background: var(--amber); color: var(--ink-on-accent); }
+  .stat-card.c-teal { background: var(--teal); color: var(--ink-on-accent); }
   .stat-num { font-family: 'Unb', sans-serif; font-weight: 900; font-size: clamp(2.4rem, 5vw, 3.2rem); font-variant-numeric: tabular-nums; }
   .stat-label { margin-top: 0.5rem; font-weight: 600; max-width: 26ch; }
 
