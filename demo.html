@@ -113,7 +113,11 @@
   .guest-list { display: flex; flex-direction: column; gap: 0.5rem; max-height: 260px; overflow: hidden; }
   .guest-row { display: flex; align-items: center; justify-content: space-between; gap: 1rem; background: rgba(20,17,44,0.32); border: 1px solid var(--line-soft); border-radius: 10px; padding: 0.6rem 0.9rem; opacity: 0; transform: translateX(-8px); transition: opacity 0.35s ease, transform 0.35s ease; }
   .guest-row.is-in { opacity: 1; transform: translateX(0); }
-  .guest-name { font-weight: 600; font-size: 0.92rem; }
+  .guest-row.is-confirmed { border-color: rgba(111,217,168,0.4); background: rgba(111,217,168,0.08); transition: opacity 0.35s ease, transform 0.35s ease, background 0.5s ease, border-color 0.5s ease; }
+  .guest-row.just-confirmed { animation: row-flash 0.9s ease; }
+  @keyframes row-flash { 0% { background: rgba(212,179,100,0.45); border-color: var(--gold-light); } 100% { background: rgba(111,217,168,0.08); border-color: rgba(111,217,168,0.4); } }
+  .guest-name { font-weight: 600; font-size: 0.92rem; transition: color 0.4s ease; }
+  .guest-row.is-confirmed .guest-name { color: var(--ok); }
   .guest-mesa { font-family: 'JBM', monospace; font-size: 0.76rem; color: var(--text-faint); }
   .guest-check { width: 20px; height: 20px; border-radius: 50%; border: 1.5px solid var(--line); display: flex; align-items: center; justify-content: center; flex: none; }
   .guest-check.is-checked { border-color: var(--ok); background: rgba(111,217,168,0.15); }
@@ -331,7 +335,7 @@
   function resetScene(i) {
     var panel = panels[i];
     panel.querySelectorAll('.field').forEach(function (el) { el.classList.remove('is-in'); });
-    panel.querySelectorAll('.guest-row').forEach(function (el) { el.classList.remove('is-in'); });
+    panel.querySelectorAll('.guest-row').forEach(function (el) { el.classList.remove('is-in', 'is-confirmed', 'just-confirmed'); });
     panel.querySelectorAll('.guest-check').forEach(function (el) { el.classList.remove('is-checked'); });
     var lc = panel.querySelector('#linkChip'); if (lc) lc.classList.remove('is-in');
     var gm2 = panel.querySelector('#guestMore2'); if (gm2) gm2.classList.remove('is-in');
@@ -356,6 +360,7 @@
     }
     if (i === 2) {
       panel.querySelectorAll('.guest-check').forEach(function (el) { el.classList.add('is-checked'); });
+      panel.querySelectorAll('.guest-row').forEach(function (el) { el.classList.add('is-confirmed'); });
       var gm3 = panel.querySelector('#guestMore3'); if (gm3) gm3.classList.add('is-in');
       var c3 = document.getElementById('counterScene3'); if (c3) c3.textContent = 'Confirmados: 92 / 80';
     }
@@ -400,6 +405,8 @@
         (function (idx) {
           schedule(function () {
             panels[2].querySelector('[data-check="' + idx + '"]').classList.add('is-checked');
+            var row = panels[2].querySelector('[data-row="' + idx + '"]');
+            row.classList.add('is-confirmed', 'just-confirmed');
             document.getElementById('counterScene3').textContent = 'Confirmados: ' + (idx + 1) + ' / 80';
           }, start + idx * step);
         })(m);
