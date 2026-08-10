@@ -367,6 +367,10 @@
   .demo-embed .naopag-note { margin-top: 1rem; display: flex; align-items: center; gap: 0.6rem; font-size: 0.86rem; color: var(--gold-light); opacity: 0; transform: translateY(4px); transition: opacity 0.4s ease, transform 0.4s ease; }
   .demo-embed .naopag-note.is-in { opacity: 1; transform: translateY(0); }
   .demo-embed .naopag-note svg { flex: none; }
+  .demo-embed .extra-form { margin-top: 1.4rem; }
+  .demo-embed .extra-label { display: block; font-family: 'JBM', monospace; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--gold-light); margin-bottom: 0.5rem; font-weight: 700; }
+  .demo-embed .extra-section { margin-top: 1.1rem; }
+  .demo-embed .extra-head { font-family: 'JBM', monospace; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: var(--gold-light); margin-bottom: 0.6rem; }
   .demo-embed .alert-card { margin-top: 1.2rem; background: rgba(194,156,70,0.10); border: 1px solid var(--gold); border-radius: 12px; padding: 0.9rem 1.1rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; opacity: 0; transform: translateY(6px); transition: opacity 0.4s ease, transform 0.4s ease; }
   .demo-embed .alert-card.is-in { opacity: 1; transform: translateY(0); }
   .demo-embed .alert-card .label { font-family: 'JBM', monospace; font-size: 0.78rem; color: var(--text-soft); }
@@ -646,11 +650,34 @@
                     </li>
                   </ul>
                 </div>
-                <div class="ci-more" id="guestMore3">+ 86 outros já confirmados</div>
+                <div class="ci-more" id="guestMore3">+ 74 outros já confirmados</div>
 
                 <div class="naopag-note" id="naopagNote">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"></path><circle cx="12" cy="12" r="9"></circle></svg>
                   Beatriz marcada como <strong>não pagante</strong> — não entra na conta do excedente
+                </div>
+
+                <div class="extra-form">
+                  <label class="extra-label">Convidado fora da lista</label>
+                  <div class="add-form">
+                    <input type="text" class="add-input" id="extraInput" placeholder="Nome" readonly tabindex="-1" />
+                    <button class="fake-btn" id="extraBtn" tabindex="-1">Adicionar</button>
+                  </div>
+                </div>
+
+                <div class="extra-section">
+                  <div class="extra-head">Fora da lista · adicionados na portaria (<span id="extraCount">0</span>)</div>
+                  <div class="ci-card">
+                    <ul class="ci-list">
+                      <li class="ci-row" id="extraRow">
+                        <button type="button" class="ci-presence" tabindex="-1">
+                          <span class="ci-dot" id="extraDot"><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.7 5.3a1 1 0 010 1.4l-7.4 7.4a1 1 0 01-1.4 0L3.3 9.5a1 1 0 111.4-1.4l3.6 3.6 6.7-6.7a1 1 0 011.4 0z" clip-rule="evenodd"></path></svg></span>
+                          <span class="ci-name">Juliana Rocha</span>
+                        </button>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="ci-more" id="extraMore">+ 11 outros adicionados na portaria</div>
                 </div>
 
                 <div class="alert-card" id="alertScene3">
@@ -859,7 +886,7 @@
   var current = 0;
   var playing = !reduced;
   var timers = [];
-  var SCENE_MS = 6400;
+  var SCENE_MS = 7700;
 
   function clearTimers() { timers.forEach(clearTimeout); timers = []; }
   function schedule(fn, delay) { var t = setTimeout(fn, delay); timers.push(t); return t; }
@@ -879,6 +906,10 @@
     var fb = panel.querySelector('#fakeBtn1'); if (fb) fb.classList.remove('is-pressed');
     var ab = panel.querySelector('#addBtn'); if (ab) ab.classList.remove('is-pressed');
     var ai = panel.querySelector('#addInput'); if (ai) ai.value = '';
+    var eb = panel.querySelector('#extraBtn'); if (eb) eb.classList.remove('is-pressed');
+    var ei = panel.querySelector('#extraInput'); if (ei) ei.value = '';
+    var em = panel.querySelector('#extraMore'); if (em) em.classList.remove('is-in');
+    var ec = panel.querySelector('#extraCount'); if (ec) ec.textContent = '0';
     var c2 = document.getElementById('counterScene2'); if (c2) c2.textContent = '0 convidados';
     var ciCh = document.getElementById('ciChegaram'); if (ciCh) ciCh.textContent = '0';
     var ciFill = document.getElementById('ciProgressFill'); if (ciFill) ciFill.style.width = '0%';
@@ -900,6 +931,8 @@
       var naopagBtn = panel.querySelector('[data-naopag="4"]'); if (naopagBtn) naopagBtn.classList.add('is-naopag');
       var nn2 = panel.querySelector('#naopagNote'); if (nn2) nn2.classList.add('is-in');
       var gm3 = panel.querySelector('#guestMore3'); if (gm3) gm3.classList.add('is-in');
+      var em2 = panel.querySelector('#extraMore'); if (em2) em2.classList.add('is-in');
+      var ec2 = panel.querySelector('#extraCount'); if (ec2) ec2.textContent = '12';
       var ciCh2 = document.getElementById('ciChegaram'); if (ciCh2) ciCh2.textContent = '92';
       var ciFill2 = document.getElementById('ciProgressFill'); if (ciFill2) ciFill2.style.width = '100%';
     }
@@ -979,17 +1012,41 @@
         btn.classList.add('is-naopag', 'just-toggled');
         document.getElementById('naopagNote').classList.add('is-in');
       }, 3550);
+      var included = 80;
       schedule(function () {
         document.getElementById('guestMore3').classList.add('is-in');
+        ciCh.textContent = String(included);
+        ciFill.style.width = Math.round((included / totalGuests) * 100) + '%';
+      }, 3950);
+      // Fora da lista: alguem chega sem estar cadastrado e a portaria
+      // adiciona na hora -- entra na contagem normal, inclusive no excedente.
+      schedule(function () {
+        document.getElementById('extraInput').value = 'Juliana Rocha';
+      }, 4400);
+      schedule(function () {
+        var btn = document.getElementById('extraBtn');
+        btn.classList.add('is-pressed');
+        schedule(function () { btn.classList.remove('is-pressed'); }, 160);
+      }, 4800);
+      schedule(function () {
+        document.getElementById('extraInput').value = '';
+        document.getElementById('extraRow').classList.add('is-in', 'is-present');
+        document.getElementById('extraCount').textContent = '1';
+        ciCh.textContent = String(included + 1);
+        ciFill.style.width = Math.round(((included + 1) / totalGuests) * 100) + '%';
+      }, 4850);
+      schedule(function () {
+        document.getElementById('extraMore').classList.add('is-in');
+        document.getElementById('extraCount').textContent = '12';
         ciCh.textContent = String(totalGuests);
         ciFill.style.width = '100%';
-      }, 4100);
+      }, 5300);
       schedule(function () {
         document.getElementById('alertScene3').classList.add('is-in');
-      }, 4550);
+      }, 5750);
       schedule(function () {
         document.getElementById('toastScene3').classList.add('is-in');
-      }, 5650);
+      }, 6900);
     }
   }
 
