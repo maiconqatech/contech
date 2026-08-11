@@ -377,6 +377,14 @@
   .demo-embed .alert-card .amount { font-family: 'Unb', sans-serif; font-weight: 900; font-size: 1.3rem; color: var(--gold-light); font-variant-numeric: tabular-nums; }
   .demo-embed .toast { margin-top: 1rem; font-family: 'JBM', monospace; font-size: 0.82rem; color: var(--ok); display: flex; align-items: center; gap: 0.5rem; opacity: 0; transition: opacity 0.4s ease; }
   .demo-embed .toast.is-in { opacity: 1; }
+  .demo-embed .report-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.7rem; }
+  .demo-embed .report-stat { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 0.35rem; background: rgba(20,17,44,0.4); border: 1px solid var(--line); border-radius: 12px; padding: 0.9rem 0.5rem; opacity: 0; transform: translateY(8px); transition: opacity 0.4s ease, transform 0.4s ease; }
+  .demo-embed .report-stat.is-in { opacity: 1; transform: translateY(0); }
+  .demo-embed .report-icon { color: var(--veludo-500); }
+  .demo-embed .report-num { font-family: 'Unb', sans-serif; font-weight: 800; font-size: 1.25rem; color: var(--gold-light); font-variant-numeric: tabular-nums; }
+  .demo-embed .report-lbl { font-family: 'JBM', monospace; font-size: 0.68rem; color: var(--text-faint); }
+  .demo-embed .report-actions { margin-top: 1.4rem; display: grid; grid-template-columns: 1fr 1fr; gap: 0.7rem; }
+  .demo-embed .report-btn { display: inline-flex; align-items: center; justify-content: center; gap: 0.45rem; width: 100%; }
   .demo-embed .caption { margin-top: 1.6rem; display: flex; justify-content: space-between; align-items: flex-start; gap: 1.5rem; flex-wrap: wrap; }
   .demo-embed .caption-text { max-width: 560px; }
   .demo-embed .caption-text h2 { font-size: 1.15rem; color: var(--text); }
@@ -506,6 +514,7 @@
             <div class="progress-seg" data-scene="0"><span class="fill"></span></div>
             <div class="progress-seg" data-scene="1"><span class="fill"></span></div>
             <div class="progress-seg" data-scene="2"><span class="fill"></span></div>
+            <div class="progress-seg" data-scene="3"><span class="fill"></span></div>
           </div>
 
           <div class="device">
@@ -691,6 +700,50 @@
                 </div>
               </div>
 
+              <!-- Scene 4: Relatório e compartilhamento -->
+              <div class="panel" data-panel="3">
+                <div class="panel-head">
+                  <div>
+                    <div class="panel-title">Relatório de Evento</div>
+                    <div class="panel-sub">Aniversário da Marina · 15/03/2026</div>
+                  </div>
+                </div>
+
+                <div class="report-grid">
+                  <div class="report-stat" data-stat="0">
+                    <svg class="report-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden><circle cx="12" cy="12" r="9"></circle><path d="M12 7v10M15 10c0-1.4-1.3-2.5-3-2.5s-3 1-3 2.3 1.3 1.9 3 2.3 3 1 3 2.4-1.3 2.5-3 2.5-3-1-3-2.5"></path></svg>
+                    <div class="report-num">91</div>
+                    <div class="report-lbl">Pagantes</div>
+                  </div>
+                  <div class="report-stat" data-stat="1">
+                    <svg class="report-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden><circle cx="12" cy="12" r="9"></circle><line x1="5.8" y1="5.8" x2="18.2" y2="18.2"></line></svg>
+                    <div class="report-num">1</div>
+                    <div class="report-lbl">Não pagantes</div>
+                  </div>
+                  <div class="report-stat" data-stat="2">
+                    <svg class="report-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden><path d="M5 21V4.6L15 3v18"></path><path d="M15 6.4 19 7v14"></path><circle cx="11.4" cy="12" r="0.9" fill="currentColor" stroke="none"></circle></svg>
+                    <div class="report-num">12</div>
+                    <div class="report-lbl">Fora da lista</div>
+                  </div>
+                </div>
+
+                <div class="report-actions">
+                  <button class="fake-btn report-btn" id="shareBtn" tabindex="-1">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden><path d="M17.6 6.3A8.9 8.9 0 0 0 12.04 3.5 8.9 8.9 0 0 0 3.5 12.04c0 1.58.42 3.12 1.2 4.48L3.5 20.5l4.06-1.06a8.9 8.9 0 0 0 4.48 1.15h.01a8.9 8.9 0 0 0 8.9-8.9 8.9 8.9 0 0 0-3.35-6.4Zm-5.56 13.7h-.01a7.4 7.4 0 0 1-3.77-1.03l-.27-.16-2.8.73.75-2.73-.18-.28a7.4 7.4 0 0 1-1.14-3.96 7.4 7.4 0 0 1 7.42-7.42 7.35 7.35 0 0 1 5.25 2.17 7.35 7.35 0 0 1 2.17 5.26 7.4 7.4 0 0 1-7.42 7.42Zm4.06-5.55c-.22-.11-1.31-.65-1.51-.72-.2-.07-.35-.11-.5.11-.15.22-.57.72-.7.87-.13.15-.26.16-.48.05-.22-.11-.94-.35-1.79-1.1-.66-.59-1.11-1.31-1.24-1.53-.13-.22-.01-.34.1-.45.1-.1.22-.26.33-.4.11-.13.15-.22.22-.37.07-.15.04-.28-.02-.4-.05-.11-.5-1.2-.68-1.65-.18-.43-.36-.37-.5-.38h-.42c-.15 0-.4.05-.6.28-.2.22-.8.78-.8 1.9s.82 2.2.94 2.35c.11.15 1.61 2.46 3.9 3.45.54.24.97.38 1.3.48.55.17 1.05.15 1.44.09.44-.07 1.31-.53 1.5-1.05.18-.51.18-.95.13-1.05-.05-.1-.2-.16-.42-.27Z"></path></svg>
+                    Compartilhar
+                  </button>
+                  <button class="fake-btn report-btn" id="pdfBtn" tabindex="-1">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden><path d="M12 3v12"></path><path d="M7 10l5 5 5-5"></path><path d="M5 19h14"></path></svg>
+                    Baixar PDF
+                  </button>
+                </div>
+
+                <div class="toast" id="toastScene4">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  Enviado no WhatsApp da Marina
+                </div>
+              </div>
+
             </div>
           </div>
 
@@ -717,6 +770,7 @@
             <button class="step-tab" data-scene="0">1 · Admin cria a festa</button>
             <button class="step-tab" data-scene="1">2 · Contratante cadastra</button>
             <button class="step-tab" data-scene="2">3 · Check-in na portaria</button>
+            <button class="step-tab" data-scene="3">4 · Relatório e compartilhamento</button>
           </div>
         </div>
       </div>
@@ -864,12 +918,14 @@
   var urls = [
     'convito.app/admin/festas/nova',
     'convito.app/f/8kxq2j',
-    'convito.app/admin/festas/8kxq2j/checkin'
+    'convito.app/admin/festas/8kxq2j/checkin',
+    'convito.app/admin/festas/8kxq2j/relatorio'
   ];
   var captions = [
     { title: '1 · Admin cria a festa', body: 'Nome da contratante, data, quantas pessoas o pacote inclui e o valor por pessoa extra — em menos de um minuto, o link já está pronto.' },
     { title: '2 · Contratante cadastra os convidados', body: 'Sem instalar nada e sem criar conta: o contratante abre o link e vai adicionando nome (e mesa) de cada convidado.' },
-    { title: '3 · Check-in na portaria', body: 'A equipe marca quem chegou — e pode marcar quem não paga (ex: criança), que fica de fora da conta do excedente.' }
+    { title: '3 · Check-in na portaria', body: 'A equipe marca quem chegou — e pode marcar quem não paga (ex: criança), que fica de fora da conta do excedente.' },
+    { title: '4 · Relatório pronto pra compartilhar', body: 'Pagantes, não pagantes e quem chegou fora da lista já separados — um toque manda o PDF pro WhatsApp da contratante.' }
   ];
 
   var panels = Array.prototype.slice.call(document.querySelectorAll('.panel'));
@@ -912,6 +968,9 @@
     var c2 = document.getElementById('counterScene2'); if (c2) c2.textContent = '0 convidados';
     var ciCh = document.getElementById('ciChegaram'); if (ciCh) ciCh.textContent = '0';
     var ciFill = document.getElementById('ciProgressFill'); if (ciFill) ciFill.style.width = '0%';
+    panel.querySelectorAll('.report-stat').forEach(function (el) { el.classList.remove('is-in'); });
+    var sb = panel.querySelector('#shareBtn'); if (sb) sb.classList.remove('is-pressed');
+    var t4 = panel.querySelector('#toastScene4'); if (t4) t4.classList.remove('is-in');
   }
 
   function playFinalState(i) {
@@ -934,6 +993,10 @@
       var ec2 = panel.querySelector('#extraCount'); if (ec2) ec2.textContent = '12';
       var ciCh2 = document.getElementById('ciChegaram'); if (ciCh2) ciCh2.textContent = '92';
       var ciFill2 = document.getElementById('ciProgressFill'); if (ciFill2) ciFill2.style.width = '100%';
+    }
+    if (i === 3) {
+      panel.querySelectorAll('.report-stat').forEach(function (el) { el.classList.add('is-in'); });
+      var t4b = panel.querySelector('#toastScene4'); if (t4b) t4b.classList.add('is-in');
     }
   }
 
@@ -1046,6 +1109,22 @@
       schedule(function () {
         document.getElementById('toastScene3').classList.add('is-in');
       }, 6900);
+    }
+    if (i === 3) {
+      [0, 1, 2].forEach(function (n, idx) {
+        schedule(function () {
+          var s = panels[3].querySelector('[data-stat="' + n + '"]');
+          if (s) s.classList.add('is-in');
+        }, 300 + idx * 260);
+      });
+      schedule(function () {
+        var btn = document.getElementById('shareBtn');
+        btn.classList.add('is-pressed');
+        schedule(function () { btn.classList.remove('is-pressed'); }, 180);
+      }, 1700);
+      schedule(function () {
+        document.getElementById('toastScene4').classList.add('is-in');
+      }, 2000);
     }
   }
 
