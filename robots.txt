@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /demo.html
+
+Sitemap: https://maiconqatech.github.io/impulsoTech/sitemap.xml
