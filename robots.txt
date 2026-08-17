@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /demo.html
 
-Sitemap: https://maiconqatech.github.io/conTech/sitemap.xml
+Sitemap: https://maiconqatech.github.io/contech/sitemap.xml
