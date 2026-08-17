@@ -2,7 +2,7 @@
 
 Landing page da **Contech**, empresa de software sob medida. Mostra o
 [Convito](https://convito-nine.vercel.app/) (produto próprio, já usado em
-50+ festas) como prova de execução e capta clientes para consultoria de
+100+ eventos) como prova de execução e capta clientes para consultoria de
 sistemas sob medida.
 
 ## Stack
