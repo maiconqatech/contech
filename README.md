@@ -1,6 +1,6 @@
-# Impulso Tech — landing page
+# Contech — landing page
 
-Landing page da **Impulso Tech**, empresa de software sob medida. Mostra o
+Landing page da **Contech**, empresa de software sob medida. Mostra o
 [Convito](https://convito-nine.vercel.app/) (produto próprio, já usado em
 50+ festas) como prova de execução e capta clientes para consultoria de
 sistemas sob medida.
